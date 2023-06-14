@@ -8,7 +8,7 @@
     <meta content="Nombre Proyecto" name="description" />
     <meta content="Consorcio Nova" name="author" />
      {{-- Logo de la pestaña --}}
-     <link rel="icon" type="image/png" href="{{ asset('public/assets/img/favicon/favicon.png') }}" sizes="64x64">
+    <link rel="icon" type="image/png" href="{{ asset('public/assets/img/favicon/favicon.png') }}" sizes="64x64">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500&display=swap" rel="stylesheet">
@@ -46,78 +46,14 @@
                 <!-- begin login-header -->
                 <div class="login-header">
                     <img src="{{ asset('public/assets/img/logo/logo.png') }}"
-                        class="img-fluid mx-auto d-block w-50 h-50" alt="Gastos">
+                        class="img-fluid mx-auto d-block" width="40%" alt="Gastos">
                     <div class="brand mt-1 text-center">
                         <b>Nombre </b> Proyecto
-                        <small class="mt-2">Bienvenido al apartado para restablecer tu contraseña.</small>
+                        @yield('note')
                     </div>
                 </div>
                 <!-- end login-header -->
-                <!-- begin login-content -->
-                <div class="login-content">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <input id="email" type="email"
-                                    class="form-control form-control-lg  @error('email') is-invalid @enderror"
-                                    name="email" value="{{ $email ?? old('email') }}" required autocomplete="email"
-                                    autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <input id="password" type="password"
-                                    class="form-control form-control-lg  @error('password') is-invalid @enderror"
-                                    name="password" required autocomplete="new-password" placeholder="Contraseña">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <input id="password-confirm" type="password" class="form-control form-control-lg"
-                                    placeholder="Confirmar contraseña" name="password_confirmation" required
-                                    autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-info btn-block btn-lg">
-                                    Reestablecer contraseña <i class="far fa-envelope"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <hr />
-                        <p class="text-center mb-0">
-                            &copy; Corporativo Nova Todos Los Derechos Reservados {{ date('Y') }}
-                        </p>
-                    </form>
-                </div>
-                <!-- end login-content -->
+                @yield('content')
             </div>
             <!-- end right-container -->
         </div>

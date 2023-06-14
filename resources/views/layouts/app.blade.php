@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <title>Titulo @yield('title') </title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
+    <meta content="Nombre Proyecto" name="description" />
+    <meta content="Consorcio Nova" name="author" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -18,8 +18,11 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- ================== END BASE CSS STYLE ================== -->
     {{-- Logo de la pestaña --}}
-	<link rel="icon" type="image/png" href="{{asset('public/assets/img/favicon/favicon.png')}}" sizes="64x64">
+    <link rel="icon" type="image/png" href="{{ asset('public/assets/img/favicon/favicon.png') }}" sizes="64x64">
     <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500&display=swap" rel="stylesheet">
     <link href="{{ asset('public/assets/plugins/gritter/css/jquery.gritter.css?v=') . rand() . date('d-m-Y H:i:s') }}"
         rel="stylesheet" />
     <link
@@ -34,6 +37,7 @@
     <script
         src="{{ asset('public/assets/plugins/bootstrap-validator/validator.min.js?v=') . rand() . date('d-m-Y H:i:s') }}">
     </script>
+    <script src="{{ asset('public/assets/css/style.css?v=') . rand() . date('d-m-Y H:i:s') }}"></script>
     {{-- Select2 --}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
     <link rel="stylesheet" type="text/css"
@@ -52,10 +56,11 @@
             overflow-y: auto;
         }
     </style>
-    @yield('links')
+    @yield('head')
 </head>
 
 <body>
+
     <!-- begin #page-loader -->
     <div id="page-loader" class="fade show">
         <span class="spinner"></span>
@@ -68,8 +73,9 @@
         <div id="header" class="header navbar-inverse">
             <!-- begin navbar-header -->
             <div class="navbar-header">
-                <a href="{{ route('home') }}" class="navbar-brand"><i class="fas fa-video"></i><b>Nombre</b>Proyecto</a>
-                <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+                <a href="{{ route('home') }}" class="navbar-brand"><b>Nombre</b>Proyecto</a>
+                <button type="button" class="navbar-toggle" data-click="sidebar-toggled"
+                    style="background-color: #324048">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -89,29 +95,38 @@
 				</li> --}}
                 {{-- USUARIOS CONECTADOS --}}
                 <li class="dropdown">
-                    {{-- @php
-                        $conta_us = 0;
+                    @php
+                        $count_us = 0;
                     @endphp
-                    @foreach ($usuario as $us)
-                        @if (Cache::has('user-is-online-' . $us->id))
-                            @php $conta_us++; @endphp
+                    @foreach ($users as $item)
+                        @if (Cache::has('user-is-online-' . $item->id))
+                            @php $count_us++; @endphp
                         @endif
-                    @endforeach --}}
+                    @endforeach
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle f-s-14">
                         <i class="fa fa-users"></i>
-                        <span class="label">4</span>
+                        <span class="label">{{ $count_us }}</span>
                     </a>
                     <div class="dropdown-menu media-list dropdown-menu-right scrollable-menu">
-                        <div class="dropdown-header">Usuarios Conectados (4)</div>
+                        <div class="dropdown-header">Usuarios Conectados ({{ $count_us }})</div>
+                        @foreach ($users as $item)
+                            @if (Cache::has('user-is-online-' . $item->id))
                                 <a class="dropdown-item media">
                                     <div class="media-left">
-                                        <img src="{{ asset('public/user/user.png')}}"
-                                            class="media-object" alt="Imagen De Usuario" />
+                                        @if (auth()->user()->image_us == '/assets/img/user.png')
+                                            <img src="{{ asset('public/assets/img/user.png') }}" width="20px"
+                                                alt="Profile" />
+                                        @else
+                                            <img src="{{ asset('public') . Storage::url(auth()->user()->image_us) }}"
+                                                width="20px" alt="Profile" />
+                                        @endif
                                     </div>
                                     <div class="media-body">
-                                        <h6 class="media-heading">nombre</h6>
+                                        <h6 class="media-heading">{{ $item->name }}</h6>
                                     </div>
                                 </a>
+                            @endif
+                        @endforeach
                     </div>
                 </li>
                 <li class="dropdown navbar-language">
@@ -126,7 +141,11 @@
                 </li>
                 <li class="dropdown navbar-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img style="width: auto !important;" src="{{ asset('public/user/user.png')}}" alt="Perfil" />
+                        @if (auth()->user()->image_us == '/assets/img/user.png')
+                            <img src="{{ asset('public/assets/img/user.png') }}" alt="Profile" />
+                        @else
+                            <img src="{{ asset('public') . Storage::url(auth()->user()->image_us) }}" alt="Profile" />
+                        @endif
                         <span class="d-none d-md-inline">{{ auth()->user()->name }}</span> <b class="caret"></b>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
@@ -154,18 +173,22 @@
                         <a href="javascript:;" data-toggle="nav-profile">
                             <div class="cover with-shadow"></div>
                             <div class="info text-center">
-                                    <img src="{{ asset('public/assets/img/empresa/imagen3.png')}}"
-                                        class="img-fluid mt-3 mb-2">
-                                {{ auth()->user()->name }}
+                                <img src="{{ asset('public/assets/img/empresa/imagen3.png') }}"
+                                    class="img-fluid mt-3 mb-2">
                             </div>
                         </a>
                     </li>
                     <li>
                         <ul class="nav nav-profile expand" style="display: block;">
-                            <li><a href="#modal-dialog" data-toggle="modal" data-backdrop="static"
-                                    data-keyboard="false"><i class="fa fa-cog"></i> Configuración</a></li>
-                            <li class="has-sub"><a
-                                    href=""><i class="far fa-folder-open"></i> Formatos</a>
+                            <li>
+                                <a href="#modal-dialog" data-toggle="modal" data-backdrop="static"
+                                    data-keyboard="false"><i class="fa-solid fa-gears"></i> Configuración</a>
+                            </li>
+                            <li class="has-sub">
+                                <a href=""><i class="fa-regular fa-folder-open"></i> Formato de Accesos</a>
+                            </li>
+                            <li class="has-sub">
+                                <a href=""><i class="fa-solid fa-play"></i> Tutoriales</a>
                             </li>
                         </ul>
                     </li>
@@ -174,10 +197,11 @@
                 <!-- begin sidebar nav -->
                 <ul class="nav">
                     <li class="nav-header">Menú</li>
-                    <li class="has-sub {{ request()->routeIS('home') ? 'active' : '' }}">
-                        <a href="{{ route('home') }}">
-                            <i class="fas fa-video"></i>
-                            <span>Inicio</span>
+                    <li
+                        class="has-sub {{ request()->routeIS('users.index', 'users.create', 'users.edit') ? 'active' : '' }}">
+                        <a href="{{ route('users.index') }}">
+                            <i class="fas fa-user"></i>
+                            <span>Usuarios</span>
                         </a>
                     </li>
 
@@ -206,8 +230,8 @@
                             <div class="form-group row">
                                 <label for="inputPassword" class="col-sm-12 col-form-label">Contraseña Actual</label>
                                 <div class="col-sm-12 input-group">
-                                    <input type="password" class="form-control" name="password_act" id="password_act"
-                                        placeholder="Contraseña" required>
+                                    <input type="password" class="form-control" name="password_act"
+                                        id="password_act" placeholder="Contraseña" required>
                                     <span class="input-group-addon" onclick="Password()"><i
                                             class="fa fa-eye-slash icon2"></i></span>
                                     <div class="col-md-12 help-block with-errors text-danger"></div>
@@ -270,19 +294,20 @@
                         <form action="{{ route('user.image') }}" method="POST" role="form"
                             data-toggle="validator" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" value="{{ auth()->user()->id }}" name="id_usuario">
+                            <input type="hidden" value="{{ auth()->user()->id }}" name="id_user">
                             <div class="form-group row">
-                                <label for="inputPassword" class="col-sm-12 col-form-label">Selecciona un archivo: <i
-                                        class="fas fa-question-circle" data-toggle="tooltip" data-placement="top"
+                                <label class="col-sm-12 col-form-label">Selecciona
+                                    un archivo: <i class="fas fa-question-circle" data-toggle="tooltip"
+                                        data-placement="top"
                                         title="Extensiones permitidas JPEG, BMP, PNG, JPG con un peso máximo de 2 MB Extensión recomendada: PNG"></i></label>
                                 <div class="custom-file mb-2">
                                     <input type="file" class="custom-file-input" id="imagen" name="imagen"
                                         accept="image/jpeg,image/png" required>
-                                    <label class="custom-file-label" for="customFile" data-browse="Buscar...">Elija
+                                    <label for="imagen" id="inputImage" class="custom-file-label"
+                                        data-browse="Buscar...">Elija
                                         el archivo</label>
                                 </div>
                             </div>
-
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary"><span class="fas fa-save"></span>
                                     Guardar</button>
@@ -295,6 +320,7 @@
 
         <!-- end #sidebar -->
         @yield('content')
+
         <!-- begin scroll to top btn -->
         <a href="javascript:;" class="btn btn-icon btn-circle btn-primary btn-scroll-to-top fade"
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
@@ -318,6 +344,9 @@
     <script src="{{ asset('public/assets/js/utils/utils.js?v=') . rand() . date('d-m-Y H:i:s') }}"></script>
     <!-- Setear input para cambiar imagen de usuario-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    {{-- SWEET ALERT --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @include('sweetalert::alert')
 
     {{-- DATATABLES --}}
     {{-- <script src="{{ asset('public/assets/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
@@ -336,25 +365,13 @@
     {{-- ACTUALIZAR IMAGEN DE PERFIL --}}
     <script>
         let uploadField = document.getElementById("imagen");
-
         uploadField.onchange = function() {
             if (this.files[0].size > 2000000) {
                 $('#change_image').modal('hide');
-                swal({
-                    title: 'Error',
-                    text: 'El archivo es mayor a 2 MB, intenta de nuevo.',
+                Swal.fire({
                     icon: 'error',
-                    closeOnClickOutside: false,
-                    closeOnEsc: false,
-                    buttons: {
-                        confirm: {
-                            text: 'Cerrar',
-                            value: true,
-                            visible: true,
-                            className: 'btn btn-secondary',
-                            closeModal: true
-                        }
-                    }
+                    title: 'Error',
+                    text: 'El archivo es mayor a 2 MB, intenta de nuevo.'
                 }).then((willDelete) => {
                     if (willDelete) {
                         $('#change_image').modal({
@@ -363,10 +380,13 @@
                         });
                     }
                 });
-
                 this.value = "";
             };
         };
+
+        document.getElementById('imagen').onchange = function() {
+            document.getElementById('inputImage').innerHTML = document.getElementById('imagen').files[0].name;
+        }
     </script>
 
     {{-- ACTUALIZAR CONTRASEÑA --}}
@@ -401,21 +421,18 @@
     <script>
         $(document).ready(function() {
             var ruta = "{{ request()->routeIS('home') }}";
-
             if (ruta == 1) {
-                /*auth()->user()->name
-                var nombre = "";
+                var nombre = "{{ auth()->user()->name }}";
                 setTimeout(function() {
                     $.gritter.add({
                         title: 'Bienvenido, ' + nombre + '!',
-                        text: 'Control De Gastos.',
-                        image: (" auth()->user()->image_us " == '/assets/user/user.png') ?
-                            "asset('public/assets/user/user.png')" :
-                            "asset('public/') . Storage::url(auth()->user()->image_us)",
+                        text: 'Nombre Proyecto.',
+                        image: ("{{ auth()->user()->image_us }}" == '/assets/img/user.png') ?
+                            "{{ asset('public/assets/img/user.png') }}" :
+                            "{{ asset('public/') . Storage::url(auth()->user()->image_us) }}",
                         fade_out_speed: 1000
                     });
                 }, 1000);
-                */
             }
         });
     </script>
@@ -424,22 +441,21 @@
     <script>
         $(document).ready(function() {
             $("#simple_confirm").click(function() {
-                swal({
-                        title: "¿Deseas salir del sistema?",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                        buttons: ['Cancelar', 'Si']
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            document.getElementById('logout-form').submit();
-                        }
-                    });
+                Swal.fire({
+                    title: "¿Deseas salir del sistema?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    buttons: ['Cancelar', 'Si']
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        document.getElementById('logout-form').submit();
+                    }
+                })
             });
         });
     </script>
-
     <!-- Password Strength-Bootsrap-->
     <script
         src="{{ asset('public/assets/plugins/pwstrength-bootstrap/dist/pwstrength-bootstrap.min.js?v=') . rand() . date('d-m-Y H:i:s') }}">

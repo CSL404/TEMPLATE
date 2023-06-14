@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Mail\NotificationMaster;
 use App\Models\Area;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
-use Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail as FacadesMail;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -25,11 +25,16 @@ class LoginController extends Controller
     /* Formulario para registro */
     public function register()
     {
+        $data = array(
+            'name' => 'Kim',
+            'email' => 'kcastillo@consorcionova.com',
+            'image' => 'public/assets/img/user.png',
+        );
         $areas = Area::select('id', 'description')->where([
             ['active', '=', 1],
         ])->get();
 
-        return view('Login.register',compact('areas'));
+        return view('Login.register', compact('areas'));
     }
 
     /* Guardado del usuario */
@@ -53,8 +58,9 @@ class LoginController extends Controller
             $data = array(
                 'name' => $name,
                 'email' => $request->email,
+                'image' => 'public/assets/img/user.png',
             );
-            // Mail::to('kcastillo@consorcionova.com')->send(new NotificationMaster($data));
+            FacadesMail::to('kcastillo@consorcionova.com')->send(new NotificationMaster($data));
             return redirect('/')->with('status', 'El usuario ha sido creado correctamente, espera la autorización del administrador.');
         } else {
             return redirect('/')->with('error', 'Ocurrio un error, contacta al administrador.');
