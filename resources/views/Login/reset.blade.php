@@ -1,6 +1,6 @@
-@extends('Login.base')
+@extends('Login.app')
 @section('title') Recuperar Contraseña @endsection
-@section('note') <small>Bienvenido al apartado para restablecer tu contraseña.</small> @endsection
+@section('note') <small class="mt-2">Bienvenido al apartado para restablecer tu contraseña.</small> @endsection
 @section('content')
 	<!-- begin login-content -->
 	<div class="login-content">

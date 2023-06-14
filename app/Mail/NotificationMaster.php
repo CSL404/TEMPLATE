@@ -27,7 +27,7 @@ class NotificationMaster extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Notification Master',
+            subject: 'Nuevo Usuario 🔔',
         );
     }
 
@@ -37,7 +37,7 @@ class NotificationMaster extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'Email.new_user',
         );
     }
 

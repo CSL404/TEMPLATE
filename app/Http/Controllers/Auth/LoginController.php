@@ -26,8 +26,10 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    protected $redirectTo = '/home';
+    // Evitar login fallados repetidas veces
+    protected $maxAttempts = 2; // Numero de intentos antes de que se bloquee
+    protected $decayMinutes = 1; // Minutos para esperar a que se desbloquee
     /**
      * Create a new controller instance.
      *
