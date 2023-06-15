@@ -54,7 +54,7 @@ class HomeController extends Controller
         if ($request->hasFile('imagen')) {
             $validate = Validator::make($request->all(), [
                 //Genero las extensiones validas para una imagen de perfil
-                'imagen' => 'mimes:jpeg,bmp,png,jpg|', 
+                'imagen' => 'mimes:jpeg,bmp,png,jpg|',
             ]);
             if ($validate->fails()) {
                 return redirect()->back()->with('error', 'No es una extensión de imagen correcta.');
@@ -70,6 +70,11 @@ class HomeController extends Controller
                 }
             }
         }
+    }
+
+    public function tutorials()
+    {
+        return view('Tutorials.list');
     }
 
 }

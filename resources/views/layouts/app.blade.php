@@ -113,7 +113,7 @@
                             @if (Cache::has('user-is-online-' . $item->id))
                                 <a class="dropdown-item media">
                                     <div class="media-left">
-                                        @if (auth()->user()->image_us == '/assets/img/user.png')
+                                        @if (auth()->user()->image_us == 'assets/img/user.png')
                                             <img src="{{ asset('public/assets/img/user.png') }}" width="20px"
                                                 alt="Profile" />
                                         @else
@@ -187,8 +187,8 @@
                             <li class="has-sub">
                                 <a href=""><i class="fa-regular fa-folder-open"></i> Formato de Accesos</a>
                             </li>
-                            <li class="has-sub">
-                                <a href=""><i class="fa-solid fa-play"></i> Tutoriales</a>
+                            <li class="has-sub {{ request()->routeIS('tutorials') ? 'active' : '' }}">
+                                <a href="{{ route('tutorials') }}"><i class="fa-solid fa-play"></i> Tutoriales</a>
                             </li>
                         </ul>
                     </li>
@@ -427,7 +427,7 @@
                     $.gritter.add({
                         title: 'Bienvenido, ' + nombre + '!',
                         text: 'Nombre Proyecto.',
-                        image: ("{{ auth()->user()->image_us }}" == '/assets/img/user.png') ?
+                        image: ("{{ auth()->user()->image_us }}" == 'assets/img/user.png') ?
                             "{{ asset('public/assets/img/user.png') }}" :
                             "{{ asset('public/') . Storage::url(auth()->user()->image_us) }}",
                         fade_out_speed: 1000

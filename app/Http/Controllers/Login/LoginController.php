@@ -26,8 +26,8 @@ class LoginController extends Controller
     public function register()
     {
         $data = array(
-            'name' => 'Kim',
-            'email' => 'kcastillo@consorcionova.com',
+            'name' => $nombre,
+            'email' => $email,
             'image' => 'public/assets/img/user.png',
         );
         $areas = Area::select('id', 'description')->where([

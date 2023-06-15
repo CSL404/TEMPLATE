@@ -20,6 +20,7 @@ Route::get('restore',[LoginController::class, 'reset']) ->name('user.restore');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::put('change/{user}',[HomeController::class, 'changePassword'])->name('user.change');
 Route::post('change.image',[HomeController::class, 'image'])->name('user.image');
+Route::get('/tutorials', [HomeController::class, 'tutorials'])->name('tutorials');
 
 //Usuarios
 Route::resource('users', UserController::class)->except(['show']);

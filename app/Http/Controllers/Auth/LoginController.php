@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/tutorials';
     // Evitar login fallados repetidas veces
     protected $maxAttempts = 2; // Numero de intentos antes de que se bloquee
     protected $decayMinutes = 1; // Minutos para esperar a que se desbloquee
