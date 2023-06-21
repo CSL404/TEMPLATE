@@ -141,7 +141,7 @@
                 </li>
                 <li class="dropdown navbar-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        @if (auth()->user()->image_us == '/assets/img/user.png')
+                        @if (auth()->user()->image_us == 'assets/img/user.png')
                             <img src="{{ asset('public/assets/img/user.png') }}" alt="Profile" />
                         @else
                             <img src="{{ asset('public') . Storage::url(auth()->user()->image_us) }}" alt="Profile" />
@@ -272,10 +272,10 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary" id="enviar"><span
-                                        class="fas fa-save"></span> Guardar</button>
-                                <button type="reset" class="btn btn-primary"><span class="fas fa-eraser"></span>
+                                <button type="reset" class="btn btn-danger"><span class="fas fa-eraser"></span>
                                     Limpiar</button>
+                                <button type="submit" class="btn btn-success" id="enviar"><span
+                                        class="fas fa-save"></span> Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -309,7 +309,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary"><span class="fas fa-save"></span>
+                                <button type="submit" class="btn btn-success"><span class="fas fa-save"></span>
                                     Guardar</button>
                             </div>
                         </form>
@@ -447,9 +447,9 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    buttons: ['Cancelar', 'Si']
-                }).then((willDelete) => {
-                    if (willDelete) {
+                    confirmButtonText: 'Si'
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         document.getElementById('logout-form').submit();
                     }
                 })
