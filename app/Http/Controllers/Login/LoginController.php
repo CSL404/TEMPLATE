@@ -25,11 +25,6 @@ class LoginController extends Controller
     /* Formulario para registro */
     public function register()
     {
-        $data = array(
-            'name' => $nombre,
-            'email' => $email,
-            'image' => 'public/assets/img/user.png',
-        );
         $areas = Area::select('id', 'description')->where([
             ['active', '=', 1],
         ])->get();
