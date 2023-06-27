@@ -61,7 +61,6 @@ class LoginController extends Controller
             return redirect('/')->with('error', 'Ocurrio un error, contacta al administrador.');
         }
     }
-
     /* Funcion que muestra el formulario para resetear contraseña*/
     public function reset()
     {
