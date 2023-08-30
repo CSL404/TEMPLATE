@@ -28414,14 +28414,13 @@ a:focus {
 
 /*Barra lateral izquierda texto*/
 .sidebar .nav>li>a {
-    margin: 2px;
-    padding: 7px 13px;
+    padding: 6px 12px;
     color: #FFF !important;
     display: block;
     text-decoration: none;
     -webkit-border-radius: 6px;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 300;
 }
 
@@ -28437,7 +28436,7 @@ a:focus {
     margin-right: 10px;
     width: 14px;
     text-align: center;
-    font-size: 16px;
+    font-size: 13px;
 }
 
 .sidebar .nav>li>a i[class^=ion-] {
@@ -28511,36 +28510,36 @@ a:focus {
 /*Hover menú*/
 .sidebar .nav>li>a:focus,
 .sidebar .nav>li>a:hover {
-    background: #0e0f10;
-    color: #0e0f10;
+    background: #494C43;
+    color: #494C43;
 }
 
 @media (max-width:889px) {
 
     .sidebar .nav>li>a:focus,
     .sidebar .nav>li>a:hover {
-        background: #0e0f10;
+        background: #494C43;
     }
 }
 
 .sidebar .nav>li.expand>a,
 .sidebar .nav>li.expanding>a {
-    background: #0e0f10;
+    background: #494C43;
 }
 
 @media (max-width:889px) {
 
     .sidebar .nav>li.expand>a,
     .sidebar .nav>li.expanding>a {
-        background: #0e0f10;
+        background: #494C43;
     }
 }
 
 .sidebar .nav>li.active>a {
     position: relative;
     z-index: 10;
-    color: #0e0f10;
-    background: #0e0f10;
+    color: #494C43;
+    background: #494C43;
 }
 
 .gradient-enabled .sidebar .nav>li.active>a {
@@ -34373,6 +34372,7 @@ code.inverse-mode {
 .error {
     margin: 0 auto;
     text-align: center;
+    height: 100vh;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -34382,8 +34382,7 @@ code.inverse-mode {
     flex-direction: column;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-    justify-content: center;
-    color:red;
+    justify-content: center
 }
 
 .error .error-code,

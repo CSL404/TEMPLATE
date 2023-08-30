@@ -113,7 +113,7 @@
                             @if (Cache::has('user-is-online-' . $item->id))
                                 <a class="dropdown-item media">
                                     <div class="media-left">
-                                        @if (auth()->user()->image_us == 'assets/img/user.png')
+                                        @if (auth()->user()->image_us == '/assets/img/user.png')
                                             <img src="{{ asset('public/assets/img/user.png') }}" width="20px"
                                                 alt="Profile" />
                                         @else
@@ -141,7 +141,7 @@
                 </li>
                 <li class="dropdown navbar-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        @if (auth()->user()->image_us == 'assets/img/user.png')
+                        @if (auth()->user()->image_us == '/assets/img/user.png')
                             <img src="{{ asset('public/assets/img/user.png') }}" alt="Profile" />
                         @else
                             <img src="{{ asset('public') . Storage::url(auth()->user()->image_us) }}" alt="Profile" />
@@ -187,8 +187,8 @@
                             <li class="has-sub">
                                 <a href=""><i class="fa-regular fa-folder-open"></i> Formato de Accesos</a>
                             </li>
-                            <li class="has-sub {{ request()->routeIS('tutorials') ? 'active' : '' }}">
-                                <a href="{{ route('tutorials') }}"><i class="fa-solid fa-play"></i> Tutoriales</a>
+                            <li class="has-sub">
+                                <a href=""><i class="fa-solid fa-play"></i> Tutoriales</a>
                             </li>
                         </ul>
                     </li>
@@ -272,10 +272,10 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="reset" class="btn btn-danger"><span class="fas fa-eraser"></span>
-                                    Limpiar</button>
-                                <button type="submit" class="btn btn-success" id="enviar"><span
+                                <button type="submit" class="btn btn-primary" id="enviar"><span
                                         class="fas fa-save"></span> Guardar</button>
+                                <button type="reset" class="btn btn-primary"><span class="fas fa-eraser"></span>
+                                    Limpiar</button>
                             </div>
                         </form>
                     </div>
@@ -309,7 +309,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-success"><span class="fas fa-save"></span>
+                                <button type="submit" class="btn btn-primary"><span class="fas fa-save"></span>
                                     Guardar</button>
                             </div>
                         </form>
@@ -427,7 +427,7 @@
                     $.gritter.add({
                         title: 'Bienvenido, ' + nombre + '!',
                         text: 'Nombre Proyecto.',
-                        image: ("{{ auth()->user()->image_us }}" == 'assets/img/user.png') ?
+                        image: ("{{ auth()->user()->image_us }}" == '/assets/img/user.png') ?
                             "{{ asset('public/assets/img/user.png') }}" :
                             "{{ asset('public/') . Storage::url(auth()->user()->image_us) }}",
                         fade_out_speed: 1000
@@ -447,9 +447,9 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
+                    buttons: ['Cancelar', 'Si']
+                }).then((willDelete) => {
+                    if (willDelete) {
                         document.getElementById('logout-form').submit();
                     }
                 })

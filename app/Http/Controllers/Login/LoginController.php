@@ -25,6 +25,11 @@ class LoginController extends Controller
     /* Formulario para registro */
     public function register()
     {
+        $data = array(
+            'name' => 'Kim',
+            'email' => 'kcastillo@consorcionova.com',
+            'image' => 'public/assets/img/user.png',
+        );
         $areas = Area::select('id', 'description')->where([
             ['active', '=', 1],
         ])->get();
@@ -61,6 +66,7 @@ class LoginController extends Controller
             return redirect('/')->with('error', 'Ocurrio un error, contacta al administrador.');
         }
     }
+
     /* Funcion que muestra el formulario para resetear contraseña*/
     public function reset()
     {
