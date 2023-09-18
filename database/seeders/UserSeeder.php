@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'email' => 'apps@raloy.com.mx',
             'password' => bcrypt('Si0908cn$'),
             'area_id' => 1,
-            'image_us' => '/assets/user/user.png',
+            'image_us' => 'public/user.png',
             'active' => 1,
             'admin' => 1,
             'created_at' => date("Y-m-d H:i:s"),

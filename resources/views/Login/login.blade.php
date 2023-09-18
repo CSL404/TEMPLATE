@@ -3,7 +3,7 @@
     Nombre proyecto
 @endsection
 @section('note')
-    <small class="mt-2">Paión por la calidad y el servicio.</small>
+    <small class="mt-2">Pasión por la calidad y el servicio.</small>
 @endsection
 @section('content')
     <!-- begin login-content -->
