@@ -28510,36 +28510,36 @@ a:focus {
 /*Hover menú*/
 .sidebar .nav>li>a:focus,
 .sidebar .nav>li>a:hover {
-    background: #494C43;
-    color: #494C43;
+    background: #435B66;
+    color: #435B66;
 }
 
 @media (max-width:889px) {
 
     .sidebar .nav>li>a:focus,
     .sidebar .nav>li>a:hover {
-        background: #494C43;
+        background: #435B66;
     }
 }
 
 .sidebar .nav>li.expand>a,
 .sidebar .nav>li.expanding>a {
-    background: #494C43;
+    background: #435B66;
 }
 
 @media (max-width:889px) {
 
     .sidebar .nav>li.expand>a,
     .sidebar .nav>li.expanding>a {
-        background: #494C43;
+        background: #435B66;
     }
 }
 
 .sidebar .nav>li.active>a {
     position: relative;
     z-index: 10;
-    color: #494C43;
-    background: #494C43;
+    color: #435B66;
+    background: #435B66;
 }
 
 .gradient-enabled .sidebar .nav>li.active>a {
@@ -58602,4 +58602,39 @@ BUTTONS
 
 .btn-primary:hover {
     background: #00AACC;
+}
+
+div.blockMsg {
+    width: 40%;
+    top: 30%;
+    left: 30%;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #7b7b7b;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    -moz-opacity: .70;
+    opacity: .70;
+    padding: 15px;
+    color: #151515;
+}
+
+th {
+    font-size: 14px;
+    text-align: center !important;
+}
+
+td {
+    font-size: 13px;
+}
+
+.brand-panel {
+    padding: 10px;
+    border-radius: 6px 6px 0px 0px;
+    -moz-border-radius: 6px 6px 0px 0px;
+    -webkit-border-radius: 6px 6px 0px 0px;
+    border: 0px solid #000000;
+    background-color: #000;
 }

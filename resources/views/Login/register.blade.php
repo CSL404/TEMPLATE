@@ -3,9 +3,11 @@
     Registro
 @endsection
 @section('head')
-    <script src="{{ asset('public/assets/plugins/bootstrap-validator/jquery-3.1.0.js?v=') . rand() . date('d-m-Y H:i:s') }}">
+    <script
+        src="{{ asset('public/assets/plugins/bootstrap-validator/jquery-3.1.0.js?v=') . rand() . date('d-m-Y H:i:s') }}">
     </script>
-    <script src="{{ asset('public/assets/plugins/bootstrap-validator/validator.min.js?v=') . rand() . date('d-m-Y H:i:s') }}">
+    <script
+        src="{{ asset('public/assets/plugins/bootstrap-validator/validator.min.js?v=') . rand() . date('d-m-Y H:i:s') }}">
     </script>
 @endsection
 @section('content')
